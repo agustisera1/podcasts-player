@@ -1,2 +1,2 @@
 export * from "./FilterBar";
-export * from "./PodcastsList";
+export * from "./PodcastsGrid";
