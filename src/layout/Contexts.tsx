@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { Podcast } from "../views/podcast";
+import { IPodcast } from "../components/podcasts";
 export interface IPodcasterContext {
-  podcasts: Podcast[];
+  podcasts: IPodcast[];
   episodes: any[];
 }
 

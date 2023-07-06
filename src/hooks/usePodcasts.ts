@@ -1,7 +1,7 @@
 import store from 'store2';
 import { useState, useCallback, useEffect } from "react";
 
-import { Podcast } from "../views/podcast";
+import { IPodcast } from "../components/podcasts";
 import { useStorageData } from ".";
 import { getPodcastClearData } from '../utils';
 import { podcasts_key } from './constants';
@@ -14,7 +14,7 @@ const podcastsApiURI =
   "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json";
 
 export const usePodcasts = () => {
-  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
+  const [podcasts, setPodcasts] = useState<IPodcast[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,7 +28,7 @@ export const usePodcasts = () => {
       if (response.ok) {
         const data = await response.json();
         setPodcasts(data.feed.entry);
-        store(podcasts_key, (data.feed.entry as Array<Podcast>).map(getPodcastClearData));
+        store(podcasts_key, (data.feed.entry as Array<IPodcast>).map(getPodcastClearData));
       } else throw new Error("Failed when loading podcasts");
 
     } catch (err) {

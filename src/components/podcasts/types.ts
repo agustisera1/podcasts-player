@@ -1,4 +1,4 @@
-export interface PodcastPreview {
+export interface IPodcastPreview {
   title: string;
   image: string;
   author?: string;
@@ -6,7 +6,7 @@ export interface PodcastPreview {
 }
 
 /* Will use a custom interface since is not available from API. */
-export interface Podcast {
+export interface IPodcast {
   /* Only declare keys that will be used for this case. */
   "im:image": Property[];
   "im:name": Property;

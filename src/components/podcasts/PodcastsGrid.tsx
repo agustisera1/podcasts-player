@@ -9,10 +9,9 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-import { PreviewCard } from ".";
-import { usePodcasts } from "../../../hooks";
-import { PodcastPreview } from "..";
-import { getPodcastPreviewData } from "../../../utils";
+import { usePodcasts } from "../../hooks";
+import { getPodcastPreviewData } from "../../utils";
+import { PreviewCard, IPodcastPreview } from ".";
 
 export const PodcastsGrid: FC = () => {
   const [filterTerm, setFilterTerm] = useState("");
@@ -22,7 +21,7 @@ export const PodcastsGrid: FC = () => {
     () =>
       roughData
         .map(getPodcastPreviewData)
-        .filter(({ title }: PodcastPreview) => {
+        .filter(({ title }: IPodcastPreview) => {
           const regex = new RegExp(filterTerm, "gi");
           return title.match(regex);
         }),

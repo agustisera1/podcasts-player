@@ -2,14 +2,14 @@ import { MouseEventHandler } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 import { Card, Image, Text } from "@chakra-ui/react";
 
-import { PodcastPreview } from "..";
+import { IPodcastPreview } from ".";
 
 export const PreviewCard = ({
   id,
   title,
   image,
   author = "iTunes",
-}: PodcastPreview) => {
+}: IPodcastPreview) => {
   const linkHandler: MouseEventHandler = useLinkClickHandler(`/podcast/${id}`);
   return (
     <Card
