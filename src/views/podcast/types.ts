@@ -2,6 +2,7 @@ export interface PodcastPreview {
   title: string;
   image: string;
   author?: string;
+  id: string;
 }
 
 /* Will use a custom interface since is not available from API. */
@@ -11,8 +12,9 @@ export interface Podcast {
   "im:name": Property;
   title: Property;
   summary: Property;
+  id: Property;
 }
 interface Property {
   label: string;
-  attributes?: any;
+  attributes?: {[key: string]: any | Property} ;
 }
