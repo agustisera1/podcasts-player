@@ -1,7 +1,12 @@
+import store from 'store2';
+import { Podcast } from '../views/podcast';
+import { podcasts_key } from './constants';
+
 export const useStorageData = () => {
-  /* TBD: Enhance with localStorage (could be store2 from npm). */
+  const podcasts: Podcast[] = store.get(podcasts_key);
+
   return {
-    podcasts: [],
+    podcasts: podcasts ?? [],
     episodes: [],
   };
 };

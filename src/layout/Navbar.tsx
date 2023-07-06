@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import { Flex, Text } from "@chakra-ui/react";
 
-export const Navbar = () => (
+export const Navbar: FC = () => (
   /* To be completed.
    To enhance Navbar with navigation logic should be moved within the router context. */
   <Flex px={14}>

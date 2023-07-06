@@ -1,6 +1,10 @@
+import store from 'store2';
 import { useState, useCallback, useEffect } from "react";
-import { useStorageData } from ".";
+
 import { Podcast } from "../views/podcast";
+import { useStorageData } from ".";
+import { getPodcastClearData } from '../utils';
+import { podcasts_key } from './constants';
 
 /*
   This URL Could be configurable by passing params to the hook + using env vars.
@@ -24,7 +28,9 @@ export const usePodcasts = () => {
       if (response.ok) {
         const data = await response.json();
         setPodcasts(data.feed.entry);
+        store(podcasts_key, (data.feed.entry as Array<Podcast>).map(getPodcastClearData));
       } else throw new Error("Failed when loading podcasts");
+
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -39,7 +45,7 @@ export const usePodcasts = () => {
   }, [getPodcasts, storagePodcasts.length]);
 
   return {
-    podcasts,
+    podcasts: storagePodcasts ?? podcasts,
     loading,
     error,
   };
