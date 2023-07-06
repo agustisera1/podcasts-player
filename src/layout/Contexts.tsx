@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
-export interface PodcasterContextType {
+export interface IPodcasterContext {
   podcasts: any[];
   episodes: any[];
 }
 
-export const PodcasterContext = createContext<PodcasterContextType>({
+export const PodcasterContext = createContext<IPodcasterContext>({
   podcasts: [],
   episodes: [],
 });

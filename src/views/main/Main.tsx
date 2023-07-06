@@ -1,10 +1,10 @@
-import { Center } from "@chakra-ui/react";
-import { PodcastsGrid } from "./components";
+import { Flex } from "@chakra-ui/react";
+import { PodcastsGrid } from "../podcast";
 
 export const Main = () => {
   return (
-    <Center pt={4}>
+    <Flex flexDir="column" px={14}>
       <PodcastsGrid />
-    </Center>
+    </Flex>
   );
 };
