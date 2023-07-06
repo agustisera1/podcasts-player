@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useStorageData } from ".";
+import { Podcast } from "../views/podcast";
 
 /*
   This URL Could be configurable by passing params to the hook + using env vars.
@@ -9,7 +10,7 @@ const podcastsApiURI =
   "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json";
 
 export const usePodcasts = () => {
-  const [podcasts, setPodcasts] = useState<any[]>([]);
+  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
