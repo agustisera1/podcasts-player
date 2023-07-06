@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import { Main } from '../views';
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Root view</div>,
+    element: <Main />,
   },
   {
     path: "/podcast/:pid",
