@@ -15,6 +15,7 @@ export const getPodcastClearData = (podcast: IPodcast) => ({
 });
 
 export const getPodcastCardData = (podcast: IPodcast) => ({
+  image: podcast["im:image"][2].label,
   title: podcast["im:name"].label,
   author: podcast["im:artist"].label,
   /* No description attribute within the data? */
