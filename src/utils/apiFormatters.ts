@@ -27,4 +27,7 @@ export const getEpisodeData = ({
   episodeUrl,
   releaseDate,
   trackTimeMillis,
-}: IEpisode) => ({ trackName, episodeUrl, releaseDate, trackTimeMillis });
+  trackId,
+}: IEpisode) => {
+  return { trackName, episodeUrl, releaseDate, trackTimeMillis, trackId };
+};

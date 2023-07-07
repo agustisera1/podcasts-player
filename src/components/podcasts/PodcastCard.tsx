@@ -5,7 +5,7 @@ export const PodcastCard = () => {
   const { podcast } = usePodcast();
 
   return (
-    <Card boxShadow="md" p={4} textAlign="left">
+    <Card minH="550px" overflow="scroll" boxShadow="md" p={4} textAlign="left">
       <Box textAlign="center" p={4}>
         {podcast?.image ? (
           <Image
