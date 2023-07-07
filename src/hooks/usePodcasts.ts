@@ -27,6 +27,7 @@ export const usePodcasts = () => {
 
       if (response.ok) {
         const data = await response.json();
+        /* TBD: Format before store, reduce data amount to keep required values only. (as useEpisodes implementation) */
         setPodcasts(data.feed.entry);
         store(podcasts_key, (data.feed.entry as Array<IPodcast>).map(getPodcastClearData));
       } else throw new Error("Failed when loading podcasts");

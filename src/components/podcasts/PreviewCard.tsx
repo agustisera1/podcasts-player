@@ -13,13 +13,13 @@ export const PreviewCard = ({
   const linkHandler: MouseEventHandler = useLinkClickHandler(`/podcast/${id}`);
   return (
     <Card
-      onClick={(e) => linkHandler(e)}
       p={4}
       boxShadow="md"
       borderRadius={4}
       align="center"
       textAlign="center"
       _hover={{ cursor: "pointer" }}
+      onClick={(e) => linkHandler(e)}
     >
       <Image
         src={image}
@@ -30,9 +30,7 @@ export const PreviewCard = ({
       <Text fontWeight="bold" mb={0}>
         {title}
       </Text>
-
-      {/* Fallbacking to iTunes, author prop is not available in the entries from api data */}
-      <Text mb={0}>Author: {author}</Text>
+      <Text color="gray.600" mb={0}>Author: {author}</Text>
     </Card>
   );
 };

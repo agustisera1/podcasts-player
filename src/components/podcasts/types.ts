@@ -1,19 +1,23 @@
-export interface IPodcastPreview {
+export interface IPodcastPreview extends IPodcastCardProps {
+  id: string;
+}
+export interface IPodcastCardProps {
   title: string;
   image: string;
   author?: string;
-  id: string;
+  description?: string;
 }
 
-/* Will use a custom interface since is not available from API. */
+/* Custom interface since is not available from API. */
 export interface IPodcast {
-  /* Only declare keys that will be used for this case. */
   "im:image": Property[];
   "im:name": Property;
+  "im:artist": Property;
   title: Property;
   summary: Property;
   id: Property;
 }
+
 interface Property {
   label: string;
   attributes?: {[key: string]: any | Property} ;
