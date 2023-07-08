@@ -1,9 +1,9 @@
 import { Divider } from "@chakra-ui/react";
 import { FC, PropsWithChildren } from "react";
 
-import { usePodcasts, useEpisodes } from "../hooks";
-import { PodcasterContext } from "./Contexts";
 import { Navbar } from "./Navbar";
+import { PodcasterContext } from "./Contexts";
+import { usePodcasts, useEpisodes } from "../hooks";
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   /*
