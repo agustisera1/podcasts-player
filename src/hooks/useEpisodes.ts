@@ -26,7 +26,9 @@ export const useEpisodes = () => {
 
       if (response.ok) {
         const data = await response.json();
-        const formattedEpisodes = (data.results as Array<IEpisode>).map(getEpisodeData)
+        const formattedEpisodes = (data.results as Array<IEpisode>).map(
+          getEpisodeData
+        );
         setEpisodes(formattedEpisodes);
         store(episodes_key, formattedEpisodes);
       } else throw new Error("Failed when loading episodes");
@@ -44,7 +46,7 @@ export const useEpisodes = () => {
   }, [getEpisodes, storageEpisodes.length]);
 
   return {
-    episodes: (storageEpisodes ?? episodes).slice(1,),
+    episodes: (storageEpisodes ?? episodes).slice(1),
     loading,
     error,
   };

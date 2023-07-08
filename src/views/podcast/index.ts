@@ -1,1 +1,1 @@
-export * from './PodcastDetailView';
+export { PodcastDetail } from './PodcastDetailView';

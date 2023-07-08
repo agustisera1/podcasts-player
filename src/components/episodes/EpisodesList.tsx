@@ -8,6 +8,8 @@ import {
   Tbody,
   Td,
   Heading,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 
 import { IEpisode } from "./types";
@@ -40,31 +42,48 @@ const ListItem = ({
 };
 
 export const EpisodesList = () => {
-  const { episodes } = useEpisodes();
+  const { episodes, loading, error } = useEpisodes();
+  if (error) console.error({ error });
 
   return (
-    <Flex flexWrap="wrap" gap={4}>
+    <Flex flexWrap="wrap" gap={4} width="100%">
       <Flex flex={1} boxShadow="md">
-        <Heading  width="100%" my={0} p={4}>
-          Episodes: {episodes.length}
+        <Heading width="100%" my={0} p={4}>
+          {error
+            ? error
+            : episodes.length
+            ? `Episodes: ${episodes.length}`
+            : "Loading"}
         </Heading>
       </Flex>
 
       <Flex py={4} height="550px" overflow="auto" width="100%" boxShadow="md">
-        <Table variant="striped" colorScheme="gray">
-          <Thead>
-            <Tr>
-              <Th>Title</Th>
-              <Th>Date</Th>
-              <Th isNumeric>Duration</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {episodes.map((episode, key) => (
-              <ListItem {...episode} key={key} />
-            ))}
-          </Tbody>
-        </Table>
+        {loading ? (
+          <Center height="350px" flex={1}>
+            <Spinner
+              thickness={"4px"}
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="#00A0DC"
+              size="xl"
+            />
+          </Center>
+        ) : (
+          <Table variant="striped" colorScheme="gray">
+            <Thead>
+              <Tr>
+                <Th>Title</Th>
+                <Th>Date</Th>
+                <Th isNumeric>Duration</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {episodes.map((episode, key) => (
+                <ListItem {...episode} key={key} />
+              ))}
+            </Tbody>
+          </Table>
+        )}
       </Flex>
     </Flex>
   );
