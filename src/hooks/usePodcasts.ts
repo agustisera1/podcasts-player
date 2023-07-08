@@ -1,10 +1,10 @@
-import store from 'store2';
+import store from "store2";
 import { useState, useCallback, useEffect } from "react";
 
-import { IPodcast } from "../components/podcasts";
+import { IPodcastAPIObject, IPodcast } from "../components/podcasts";
 import { useStorageData } from ".";
-import { getPodcastClearData } from '../utils';
-import { podcasts_key } from './constants';
+import { getPodcastData } from "../utils";
+import { podcasts_key } from "./constants";
 
 /*
   This URL Could be configurable by passing params to the hook + using env vars.
@@ -27,11 +27,13 @@ export const usePodcasts = () => {
 
       if (response.ok) {
         const data = await response.json();
-        /* TBD: Format before store, reduce data amount to keep required values only. (as useEpisodes implementation) */
-        setPodcasts(data.feed.entry);
-        store(podcasts_key, (data.feed.entry as Array<IPodcast>).map(getPodcastClearData));
-      } else throw new Error("Failed when loading podcasts");
+        const reducedData = (data.feed.entry as Array<IPodcastAPIObject>).map(
+          getPodcastData
+        );
 
+        setPodcasts(reducedData);
+        store(podcasts_key, reducedData);
+      } else throw new Error("Failed when loading podcasts");
     } catch (err) {
       setError((err as Error).message);
     } finally {

@@ -10,22 +10,19 @@ import {
 } from "@chakra-ui/react";
 
 import { usePodcasts } from "../../hooks";
-import { getPodcastPreviewData } from "../../utils";
-import { PreviewCard, IPodcastPreview } from ".";
+import { PreviewCard } from ".";
 
 export const PodcastsGrid: FC = () => {
   const [filterTerm, setFilterTerm] = useState("");
-  const { podcasts: roughData, loading } = usePodcasts();
+  const { podcasts: allPodcasts, loading } = usePodcasts();
 
   const podcasts = useMemo(
     () =>
-      roughData
-        .map(getPodcastPreviewData)
-        .filter(({ title }: IPodcastPreview) => {
-          const regex = new RegExp(filterTerm, "gi");
-          return title.match(regex);
-        }),
-    [roughData, filterTerm]
+      allPodcasts.filter(({ title }: any) => {
+        const regex = new RegExp(filterTerm, "gi");
+        return title.match(regex);
+      }),
+    [allPodcasts, filterTerm]
   );
 
   if (loading)

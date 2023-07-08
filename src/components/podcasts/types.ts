@@ -1,15 +1,17 @@
-export interface IPodcastPreview extends IPodcastCardProps {
-  id: string;
-}
-export interface IPodcastCardProps {
-  title: string;
-  image: string;
-  author?: string;
-  description?: string;
-}
-
 /* Custom interface since is not available from API. */
 export interface IPodcast {
+  id: string;
+  name?: string;
+  title: string;
+  artist?: string;
+  image: string;
+  summary: string;
+  description?: string;
+  author?: string;
+}
+
+/* The relevant Podcast props from the API response */
+export interface IPodcastAPIObject {
   "im:image": Property[];
   "im:name": Property;
   "im:artist": Property;
@@ -17,8 +19,7 @@ export interface IPodcast {
   summary: Property;
   id: Property;
 }
-
 interface Property {
   label: string;
-  attributes?: {[key: string]: any | Property} ;
+  attributes?: { [key: string]: Property | any };
 }
