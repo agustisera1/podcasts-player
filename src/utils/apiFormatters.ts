@@ -1,13 +1,22 @@
-import { Podcast } from "../views/podcast";
+import { IPodcastAPIObject } from "../components/podcasts";
+import { IEpisode } from "../components/episodes";
 
-/* Would be ideal have a real formatter that understands the API response. */
-export const getPodcastPreviewData = (podcast: Podcast) => ({
+export const getPodcastData = (podcast: IPodcastAPIObject) => ({
   id: podcast.id.attributes?.["im:id"],
   title: podcast["im:name"].label,
-  image: podcast["im:image"][2].label, // Pick the highest res image
+  author: podcast["im:artist"].label,
+  /* Pick the highest res image */
+  image: podcast["im:image"][2].label,
+  /* No description attribute within the data? */
+  summary: podcast["summary"].label,
 });
 
-export const getPodcastClearData = (podcast: Podcast) => ({
-  /* TBD: Reduce data amount by selecting relevant keys only. */
-  ...podcast,
-});
+export const getEpisodeData = ({
+  trackName,
+  episodeUrl,
+  releaseDate,
+  trackTimeMillis,
+  trackId,
+}: IEpisode) => {
+  return { trackName, episodeUrl, releaseDate, trackTimeMillis, trackId };
+};

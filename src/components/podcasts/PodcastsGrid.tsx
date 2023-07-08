@@ -9,24 +9,20 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
+import { usePodcasts } from "../../hooks";
 import { PreviewCard } from ".";
-import { usePodcasts } from "../../../hooks";
-import { PodcastPreview } from "..";
-import { getPodcastPreviewData } from "../../../utils";
 
 export const PodcastsGrid: FC = () => {
   const [filterTerm, setFilterTerm] = useState("");
-  const { podcasts: roughData, loading } = usePodcasts();
+  const { podcasts: allPodcasts, loading } = usePodcasts();
 
   const podcasts = useMemo(
     () =>
-      roughData
-        .map(getPodcastPreviewData)
-        .filter(({ title }: PodcastPreview) => {
-          const regex = new RegExp(filterTerm, "gi");
-          return title.match(regex);
-        }),
-    [roughData, filterTerm]
+      allPodcasts.filter(({ title }: any) => {
+        const regex = new RegExp(filterTerm, "gi");
+        return title.match(regex);
+      }),
+    [allPodcasts, filterTerm]
   );
 
   if (loading)

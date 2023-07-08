@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Main } from '../views';
+import { MainView, PodcastDetail } from "../views";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: <MainView />,
   },
   {
     path: "/podcast/:pid",
-    element: <div>Podcast detail view</div>,
+    element: <PodcastDetail />,
   },
   {
     path: "/podcast/:pid/episode/:eid",
