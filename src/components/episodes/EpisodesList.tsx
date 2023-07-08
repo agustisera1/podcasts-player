@@ -50,7 +50,7 @@ export const EpisodesList = () => {
       <Flex flex={1} boxShadow="md">
         <Heading width="100%" my={0} p={4}>
           {error
-            ? error
+            ? "Episodes count not available"
             : episodes.length
             ? `Episodes: ${episodes.length}`
             : "Loading"}

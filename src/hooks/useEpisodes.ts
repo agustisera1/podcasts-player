@@ -40,10 +40,11 @@ export const useEpisodes = () => {
   }, [url]);
 
   useEffect(() => {
-    if (!storageEpisodes.length) {
+    if (pid) {
+      /* TBD: Add 24hs. rule and prevent repeated fetching. */
       getEpisodes();
     }
-  }, [getEpisodes, storageEpisodes.length]);
+  }, [getEpisodes, pid]);
 
   return {
     episodes: (storageEpisodes ?? episodes).slice(1),
