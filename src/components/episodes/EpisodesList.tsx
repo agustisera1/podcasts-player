@@ -15,7 +15,7 @@ import {
 import { IEpisode } from "./types";
 import { useEpisodes } from "../../hooks";
 import { useLocation, useLinkClickHandler } from "react-router-dom";
-import { convertMsToMinutes, formatDate } from "../../utils";
+import { formatDuration, formatDate } from "../../utils";
 
 const ListItem = ({
   trackName,
@@ -36,7 +36,7 @@ const ListItem = ({
     >
       <Td>{trackName}</Td>
       <Td>{date}</Td>
-      <Td isNumeric>{convertMsToMinutes(trackTimeMillis)}</Td>
+      <Td isNumeric>{formatDuration(trackTimeMillis)}</Td>
     </Tr>
   );
 };
