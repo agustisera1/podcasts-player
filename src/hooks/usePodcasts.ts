@@ -1,10 +1,10 @@
 import store from "store2";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 
 import { IPodcastAPIObject, IPodcast } from "../components/podcasts";
-import { useStorageData } from ".";
+import { Expiration, useStorageData } from ".";
 import { getPodcastData } from "../utils";
-import { podcasts_key } from "./constants";
+import { expiration_key, podcasts_key } from "./constants";
 
 /*
   This URL Could be configurable by passing params to the hook + using env vars.
@@ -18,7 +18,15 @@ export const usePodcasts = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { podcasts: storagePodcasts } = useStorageData();
+  const { podcasts: storagePodcasts, expiration } = useStorageData();
+
+  const shouldFetch = useMemo(() => {
+    const expired = expiration?.podcasts
+      ? expiration.podcasts < new Date()
+      : false;
+
+    return !storagePodcasts.length || expired;
+  }, [expiration, storagePodcasts.length]);
 
   const getPodcasts = useCallback(async () => {
     try {
@@ -32,20 +40,28 @@ export const usePodcasts = () => {
         );
 
         setPodcasts(reducedData);
+
         store(podcasts_key, reducedData);
+
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 1);
+        store(expiration_key, {
+          ...expiration,
+          podcasts: expirationDate,
+        } as Expiration);
       } else throw new Error("Failed when loading podcasts");
     } catch (err) {
       setError((err as Error).message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [expiration]);
 
   useEffect(() => {
-    if (!storagePodcasts.length) {
+    if (shouldFetch) {
       getPodcasts();
     }
-  }, [getPodcasts, storagePodcasts.length]);
+  }, [getPodcasts, shouldFetch]);
 
   return {
     podcasts: storagePodcasts ?? podcasts,
