@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useCallback, useState, useEffect } from "react";
 
 import { IEpisode } from "../components/episodes";
-import { episodes_key } from "./constants";
+import { StorageKeys } from '../hooks'
 import { useStorageData } from "./useStorageData";
 import { getEpisodeData } from "../utils";
 
@@ -30,7 +30,7 @@ export const useEpisodes = () => {
           getEpisodeData
         );
         setEpisodes(formattedEpisodes);
-        store(episodes_key, formattedEpisodes);
+        store(StorageKeys.episodes, formattedEpisodes);
       } else throw new Error("Failed when loading episodes");
     } catch (err) {
       setError((err as Error).message);
@@ -40,10 +40,11 @@ export const useEpisodes = () => {
   }, [url]);
 
   useEffect(() => {
-    if (!storageEpisodes.length) {
+    if (pid) {
+      /* TBD: Add 24hs. rule and prevent repeated fetching. */
       getEpisodes();
     }
-  }, [getEpisodes, storageEpisodes.length]);
+  }, [getEpisodes, pid]);
 
   return {
     episodes: (storageEpisodes ?? episodes).slice(1),

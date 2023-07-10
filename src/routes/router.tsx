@@ -1,19 +1,28 @@
+import { FC, PropsWithChildren } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Layout as BaseLayout } from "../layout";
 
-import { MainView, PodcastDetail } from "../views";
+import { MainView, PodcastDetail, EpisodeDetail } from "../views";
+
+/* Could use different wrappers to build views */
+const withLayout = (View: FC, Wrapper: FC<PropsWithChildren> = BaseLayout) => (
+  <Wrapper>
+    <View />
+  </Wrapper>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainView />,
+    element: withLayout(MainView),
   },
   {
     path: "/podcast/:pid",
-    element: <PodcastDetail />,
+    element: withLayout(PodcastDetail),
   },
   {
     path: "/podcast/:pid/episode/:eid",
-    element: <div>Episode detail view</div>,
+    element: withLayout(EpisodeDetail),
   },
 ]);
 

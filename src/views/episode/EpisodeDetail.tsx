@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { Flex } from "@chakra-ui/react";
 import { PodcastCard } from "../../components/podcasts";
-import { EpisodesList } from "../../components/episodes";
+import { EpisodeDetailCard } from "../../components/episodes";
 
-export const PodcastDetail: FC = () => (
+export const EpisodeDetail: FC = () => (
   <Flex px={14} gap={12} mb={12}>
     <Flex alignItems="start" flexDir="column" flexBasis="300px">
       <PodcastCard />
     </Flex>
     <Flex alignItems="start" flex={1} gap={4}>
-      <EpisodesList />
+      <EpisodeDetailCard />
     </Flex>
   </Flex>
 );

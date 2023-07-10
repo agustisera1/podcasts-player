@@ -5,4 +5,6 @@ export interface IEpisode {
   releaseDate: string;
   /* Duration in miliseconds */
   trackTimeMillis: number;
+  description: string;
+  sponsors?: string[];
 }

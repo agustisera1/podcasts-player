@@ -5,7 +5,6 @@ import "./index.css";
 
 import { Router } from "./routes";
 import { ThemeProvider } from "./theming";
-import { Layout } from "./layout";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,9 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <Layout>
-        <Router/>
-      </Layout>
+      <Router />
     </ThemeProvider>
   </React.StrictMode>
 );

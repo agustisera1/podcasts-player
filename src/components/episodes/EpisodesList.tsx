@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 import {
   Flex,
   Table,
@@ -15,14 +15,14 @@ import {
 import { IEpisode } from "./types";
 import { useEpisodes } from "../../hooks";
 import { useLocation, useLinkClickHandler } from "react-router-dom";
-import { convertMsToMinutes, formatDate } from "../../utils";
+import { formatDuration, formatDate } from "../../utils";
 
-const ListItem = ({
+const ListItem: FC<IEpisode> = ({
   trackName,
   trackTimeMillis,
   releaseDate,
   trackId,
-}: IEpisode) => {
+}) => {
   const { pathname } = useLocation();
   const date = formatDate(releaseDate);
 
@@ -36,7 +36,7 @@ const ListItem = ({
     >
       <Td>{trackName}</Td>
       <Td>{date}</Td>
-      <Td isNumeric>{convertMsToMinutes(trackTimeMillis)}</Td>
+      <Td isNumeric>{formatDuration(trackTimeMillis)}</Td>
     </Tr>
   );
 };
@@ -50,7 +50,7 @@ export const EpisodesList = () => {
       <Flex flex={1} boxShadow="md">
         <Heading width="100%" my={0} p={4}>
           {error
-            ? error
+            ? "Episodes count not available"
             : episodes.length
             ? `Episodes: ${episodes.length}`
             : "Loading"}
