@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 
 import { usePodcasts } from "../../hooks";
-import { PreviewCard } from ".";
+import { IPodcast, PreviewCard } from ".";
+import { podcastGridTestingIds as tids } from "./constants";
 
 export const PodcastsGrid: FC = () => {
   const [filterTerm, setFilterTerm] = useState("");
@@ -18,7 +19,7 @@ export const PodcastsGrid: FC = () => {
 
   const podcasts = useMemo(
     () =>
-      allPodcasts.filter(({ title }: any) => {
+      allPodcasts.filter(({ title }: IPodcast) => {
         const regex = new RegExp(filterTerm, "gi");
         return title.match(regex);
       }),
@@ -40,7 +41,7 @@ export const PodcastsGrid: FC = () => {
 
   return (
     <>
-      <Flex justify="flex-end" pb={4}>
+      <Flex data-testid={tids.filterContainer} justify="flex-end" pb={4}>
         <Box height={7}>
           <Badge
             variant="solid"
@@ -56,6 +57,7 @@ export const PodcastsGrid: FC = () => {
         <Box height={7}>
           {/* Lib issue with Chakra input */}
           <input
+            data-testid={tids.filterInput}
             style={{ height: "23px", width: "250px" }}
             placeholder="Filter podcasts"
             onChange={(e) => setFilterTerm(e.target.value)}
@@ -64,7 +66,7 @@ export const PodcastsGrid: FC = () => {
       </Flex>
 
       {podcasts.length ? (
-        <Flex>
+        <Flex data-testid={tids.gridContainer}>
           <SimpleGrid
             pt={8}
             columns={4}
@@ -74,7 +76,7 @@ export const PodcastsGrid: FC = () => {
             overflow="auto"
           >
             {podcasts.map((podcast, idx) => (
-              <GridItem key={idx}>
+              <GridItem data-testid={tids.gridItem} key={idx}>
                 <PreviewCard {...podcast} />
               </GridItem>
             ))}
