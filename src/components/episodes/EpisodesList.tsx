@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 import {
   Flex,
   Table,
@@ -17,12 +17,12 @@ import { useEpisodes } from "../../hooks";
 import { useLocation, useLinkClickHandler } from "react-router-dom";
 import { formatDuration, formatDate } from "../../utils";
 
-const ListItem = ({
+const ListItem: FC<IEpisode> = ({
   trackName,
   trackTimeMillis,
   releaseDate,
   trackId,
-}: IEpisode) => {
+}) => {
   const { pathname } = useLocation();
   const date = formatDate(releaseDate);
 

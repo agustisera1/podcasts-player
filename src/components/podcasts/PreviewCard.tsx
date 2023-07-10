@@ -1,15 +1,15 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 import { Card, Image, Text } from "@chakra-ui/react";
 
 import { IPodcast } from ".";
 
-export const PreviewCard = ({
+export const PreviewCard: FC<IPodcast> = ({
   id,
   title,
   image,
   author = "iTunes",
-}: IPodcast) => {
+}) => {
   const linkHandler: MouseEventHandler = useLinkClickHandler(`/podcast/${id}`);
   return (
     <Card
@@ -30,7 +30,9 @@ export const PreviewCard = ({
       <Text fontWeight="bold" mb={0}>
         {title}
       </Text>
-      <Text color="gray.600" mb={0}>Author: {author}</Text>
+      <Text color="gray.600" mb={0}>
+        Author: {author}
+      </Text>
     </Card>
   );
 };

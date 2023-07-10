@@ -1,10 +1,11 @@
 import { FC, PropsWithChildren } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Layout } from "../layout";
+import { Layout as BaseLayout } from "../layout";
 
 import { MainView, PodcastDetail, EpisodeDetail } from "../views";
 
-const withLayout = (View: FC, Wrapper: FC<PropsWithChildren> = Layout) => (
+/* Could use different wrappers to build views */
+const withLayout = (View: FC, Wrapper: FC<PropsWithChildren> = BaseLayout) => (
   <Wrapper>
     <View />
   </Wrapper>

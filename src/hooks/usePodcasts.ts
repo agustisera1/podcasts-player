@@ -4,14 +4,15 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import { IPodcastAPIObject, IPodcast } from "../components/podcasts";
 import { Expiration, useStorageData } from ".";
 import { getPodcastData } from "../utils";
-import { expiration_key, podcasts_key } from "./constants";
+import { StorageKeys } from "../hooks";
 
 /*
   This URL Could be configurable by passing params to the hook + using env vars.
   Not required for demo
 */
-const podcastsApiURI =
-  "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json";
+const url = encodeURI(
+  "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json"
+);
 
 export const usePodcasts = () => {
   const [podcasts, setPodcasts] = useState<IPodcast[]>([]);
@@ -31,7 +32,7 @@ export const usePodcasts = () => {
   const getPodcasts = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(podcastsApiURI).then((data) => data);
+      const response = await fetch(url).then((data) => data);
 
       if (response.ok) {
         const data = await response.json();
@@ -40,15 +41,15 @@ export const usePodcasts = () => {
         );
 
         setPodcasts(reducedData);
-
-        store(podcasts_key, reducedData);
+        store(StorageKeys.podcasts, reducedData);
 
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 1);
-        store(expiration_key, {
+        store(StorageKeys.expiration, {
           ...expiration,
           podcasts: expirationDate,
         } as Expiration);
+
       } else throw new Error("Failed when loading podcasts");
     } catch (err) {
       setError((err as Error).message);

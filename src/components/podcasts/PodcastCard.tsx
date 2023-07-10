@@ -1,10 +1,10 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 import { useLinkClickHandler, useParams } from "react-router-dom";
 import { Card, Image, Text, Divider, Box, BoxProps } from "@chakra-ui/react";
 
 import { usePodcast } from "../../hooks";
 
-export const PodcastCard = () => {
+export const PodcastCard: FC = () => {
   const { podcast } = usePodcast();
   const { eid: episodeId } = useParams();
 
