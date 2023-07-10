@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { PodcastsGrid } from "./PodcastsGrid";
-import { mockPodcasts, renderWithRouter } from "../../testing";
 import { podcastGridTestingIds } from "./constants";
+import { mockPodcasts, renderWithRouter } from "../../testing";
 
 jest.mock("../../hooks/usePodcasts", () => ({
   usePodcasts: () => ({
@@ -16,7 +16,7 @@ describe("PodcastGrid", () => {
     podcastGridTestingIds;
   it("Should render", () => {
     renderWithRouter(<PodcastsGrid />);
-    /* If preferred we could use expect(...).toMatchSnapshot() */
+    /* Alternatively expect(...).toMatchSnapshot() */
     expect(screen.getByTestId(gridContainer)).toBeDefined();
     expect(screen.getByTestId(filterContainer)).toBeDefined();
     expect(screen.queryAllByTestId(gridItem).length).toEqual(100);
