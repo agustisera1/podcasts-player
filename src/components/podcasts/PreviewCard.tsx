@@ -13,6 +13,7 @@ export const PreviewCard: FC<IPodcast> = ({
   const linkHandler: MouseEventHandler = useLinkClickHandler(`/podcast/${id}`);
   return (
     <Card
+      data-testid={`card-${id}`}
       p={4}
       boxShadow="md"
       borderRadius={4}
