@@ -4,7 +4,7 @@
 Podcaster is a `react` app that allows you to navigate and play the top 100 rated podcasts from iTunes.
 Provides a high level detail for each podcast and it's episodes like description, authors, duration, etc. 
 
-Has been built to address a list of requirements (see: [requirements section](https://github.com/agustisera1/podcasts-player/edit/main/README.md#high-level-requirements-%EF%B8%8F)).
+Has been built to address a list of requirements (see: [requirements section](https://github.com/agustisera1/podcasts-player#high-level-requirements-%EF%B8%8F)).
 
 ## Available Scripts 🧰
 ### `npm run dev`
@@ -25,6 +25,8 @@ Launches the test runner in the interactive watch mode.
 - Optimize components (caching)
 - Increase the test coverage
 - Increase error handling for views
+- Implement theming and design systems
+- Integrate server side architecture (long term, migration required)
 
 ## (High level) Requirements 🗒️
 - Get the list of the top 100 rated podcasts
@@ -33,3 +35,4 @@ Launches the test runner in the interactive watch mode.
 - Dev and Prod modes
 - Implements client storage and expiration
 - Navigation and search
+
