@@ -20,14 +20,15 @@ export const usePodcasts = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { podcasts: storagePodcasts, expiration } = useStorageData();
+  const hasStoredPodcasts = !!storagePodcasts.length;
 
   const shouldFetch = useMemo(() => {
     const expired = expiration?.podcasts
       ? expiration.podcasts < new Date()
       : false;
 
-    return !storagePodcasts.length || expired;
-  }, [expiration, storagePodcasts.length]);
+    return !hasStoredPodcasts || expired;
+  }, [expiration, hasStoredPodcasts]);
 
   const getPodcasts = useCallback(async () => {
     try {
@@ -65,7 +66,7 @@ export const usePodcasts = () => {
   }, [getPodcasts, shouldFetch]);
 
   return {
-    podcasts: storagePodcasts ?? podcasts,
+    podcasts: hasStoredPodcasts ? storagePodcasts : podcasts,
     loading,
     error,
   };
