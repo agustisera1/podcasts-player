@@ -3,13 +3,17 @@ import { useParams } from "react-router-dom";
 import { useStorageData } from "./useStorageData";
 
 export const useEpisode = () => {
-  const { eid } = useParams();
-  const { episodes: storageEpisodes } = useStorageData();
+  const { eid, pid } = useParams();
+  const { podcasts_detail: podcastsDetail } = useStorageData();
+
+  const podcast = useMemo(
+    () => podcastsDetail.find(({ podcastId }) => podcastId === pid),
+    [pid, podcastsDetail]
+  );
 
   const episode = useMemo(
-    () =>
-      storageEpisodes?.find(({ trackId }) => String(trackId) === eid) ?? null,
-    [eid, storageEpisodes]
+    () => podcast?.episodes.find(({ trackId }) => eid === String(trackId)),
+    [eid, podcast]
   );
 
   return { episode };

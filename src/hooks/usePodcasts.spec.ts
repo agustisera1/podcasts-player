@@ -1,6 +1,7 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { mockPodcasts, mockPodcastsRoughData } from "../testing";
 import { usePodcasts, useStorageData } from ".";
+import { genExpirationDate } from "../utils";
 
 jest.mock("./useStorageData", () => ({
   useStorageData: jest.fn(),
@@ -10,12 +11,8 @@ global.fetch = jest.fn();
 
 describe("usePodcasts", () => {
   it("Should return the client stored podcasts if expired", async () => {
-    const date = new Date();
-    /* Ensure oudated storage */
-    date.setDate(date.getDate() - 7);
     (useStorageData as jest.Mock).mockReturnValue({
-      podcasts: mockPodcasts,
-      expiration: { podcasts: date },
+      podcasts: { podcasts: mockPodcasts, expiration: genExpirationDate(-1) },
     } as ReturnType<typeof useStorageData>);
 
     const { result } = renderHook(() => usePodcasts());
@@ -34,8 +31,8 @@ describe("usePodcasts", () => {
 
   it("Should return the fetch the podcasts has no data stored in the storage", async () => {
     (useStorageData as jest.Mock).mockReturnValue({
-      podcasts: [] as any[],
-      expiration: {},
+      podcasts: { podcasts: [], expiration: genExpirationDate(-1) },
+      podcasts_detail: [],
     } as ReturnType<typeof useStorageData>);
 
     (global.fetch as jest.Mock).mockResolvedValue({
@@ -58,12 +55,8 @@ describe("usePodcasts", () => {
   });
 
   it("Should not fetch if has stored podcasts and did not expire", async () => {
-    const date = new Date();
-    /* Prevent expiration */
-    date.setDate(date.getDate() + 7);
     (useStorageData as jest.Mock).mockReturnValue({
-      podcasts: mockPodcasts,
-      expiration: { podcasts: date },
+      podcasts: { podcasts: mockPodcasts, expiration: genExpirationDate(7) },
     } as ReturnType<typeof useStorageData>);
 
     global.fetch = jest.fn().mockReset();
