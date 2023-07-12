@@ -24,7 +24,8 @@ Launches the test runner in the interactive watch mode.
 - Optimize client storage
 - Optimize components (caching)
 - Increase the test coverage
-- Increase error handling for views
+- Add error handling for views
+- Responsive components
 - Implement theming and design systems
 - Integrate server side architecture (long term, migration required)
 
@@ -34,5 +35,5 @@ Launches the test runner in the interactive watch mode.
 - Single page application
 - Dev and Prod modes
 - Implements client storage and expiration
-- Navigation and search
+- Navigation and filter
 
