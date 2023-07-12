@@ -6,11 +6,11 @@ export enum StorageKeys {
   podcasts = "podcasts",
   podcasts_detail = "podcasts_detail",
 }
-export interface StoragePodcasts {
+interface StoragePodcasts {
   podcasts: IPodcast[];
   expiration: Date;
 }
-export interface StoragePodcastDetail {
+interface StoragePodcastDetail {
   episodes: IEpisode[];
   expiration: Date;
   podcastId: string;

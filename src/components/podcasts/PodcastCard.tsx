@@ -25,8 +25,8 @@ export const PodcastCard: FC = () => {
         {podcast?.image ? (
           <Image
             borderRadius={12}
-            src={podcast?.image}
-            alt={`${podcast?.title} image`}
+            src={podcast.image}
+            alt={`${podcast.title} image`}
           />
         ) : (
           "Podcast image not available"
