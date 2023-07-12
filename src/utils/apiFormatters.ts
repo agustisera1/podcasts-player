@@ -1,6 +1,12 @@
 import { IPodcastAPIObject } from "../components/podcasts";
 import { IEpisode } from "../components/episodes";
 
+export const genExpirationDate = (days: number = 1) => {
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + days);
+  return expirationDate;
+}
+
 export const getPodcastData = (podcast: IPodcastAPIObject) => ({
   id: podcast.id.attributes?.["im:id"],
   title: podcast["im:name"].label,

@@ -2,7 +2,7 @@ import store from "store2";
 import { useState, useCallback, useEffect, useMemo } from "react";
 
 import { IPodcastAPIObject, IPodcast } from "../components/podcasts";
-import { Expiration, useStorageData } from ".";
+import { useStorageData } from ".";
 import { getPodcastData } from "../utils";
 import { StorageKeys } from "../hooks";
 
@@ -19,16 +19,17 @@ export const usePodcasts = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { podcasts: storagePodcasts, expiration } = useStorageData();
-  const hasStoredPodcasts = !!storagePodcasts.length;
+  const {
+    podcasts: { podcasts: storagePodcasts, expiration },
+  } = useStorageData();
 
-  const shouldFetch = useMemo(() => {
-    const expired = expiration?.podcasts
-      ? expiration.podcasts < new Date()
-      : false;
+  const hasStoredPodcasts = !!storagePodcasts?.length;
+  const expired = new Date(expiration) < new Date();
 
-    return !hasStoredPodcasts || expired;
-  }, [expiration, hasStoredPodcasts]);
+  const shouldFetch = useMemo(
+    () => !hasStoredPodcasts || expired,
+    [expired, hasStoredPodcasts]
+  );
 
   const getPodcasts = useCallback(async () => {
     try {
@@ -41,23 +42,21 @@ export const usePodcasts = () => {
           getPodcastData
         );
 
-        setPodcasts(reducedData);
-        store(StorageKeys.podcasts, reducedData);
-
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 1);
-        store(StorageKeys.expiration, {
-          ...expiration,
-          podcasts: expirationDate,
-        } as Expiration);
 
+        setPodcasts(reducedData);
+        store(StorageKeys.podcasts, {
+          expiration: expirationDate,
+          podcasts: reducedData,
+        });
       } else throw new Error("Failed when loading podcasts");
     } catch (err) {
       setError((err as Error).message);
     } finally {
       setLoading(false);
     }
-  }, [expiration]);
+  }, []);
 
   useEffect(() => {
     if (shouldFetch) {

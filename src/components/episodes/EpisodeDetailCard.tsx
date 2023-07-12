@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Flex, Text, Box, Heading } from "@chakra-ui/react";
+import { Flex, Text, Box, Heading, Badge } from "@chakra-ui/react";
 
 import { MediaPlayer } from ".";
 import { useEpisode } from "../../hooks/useEpisode";
@@ -17,7 +17,20 @@ export const EpisodeDetailCard: FC = () => {
       </Box>
       {episode?.episodeUrl && <MediaPlayer src={episode.episodeUrl} />}
       {episode?.sponsors && (
-        <Text fontStyle="italic">This episode is sponsored by: {episode.sponsors}</Text>
+        <>
+          <Text fontStyle="italic">This episode is sponsored by: </Text>
+          <Flex gap={4} flexWrap="wrap">
+            {episode?.sponsors.map((sponsor, index) => (
+              <Badge
+                key={`${index}-${sponsor}`}
+                variant="subtle"
+                color="#00A0DC"
+              >
+                {sponsor}
+              </Badge>
+            ))}
+          </Flex>
+        </>
       )}
     </Flex>
   );
