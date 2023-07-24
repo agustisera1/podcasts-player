@@ -14,16 +14,18 @@ export const useEpisodes = () => {
 
   const { pid = "missing-podcast-id" } = useParams();
 
-  const encodedUrl = useMemo(() => {
-    const CORSUrl = new URL("https://itunes.apple.com/lookup?");
-    CORSUrl.searchParams.set("id", pid);
-    CORSUrl.searchParams.set("media", "podcast");
-    CORSUrl.searchParams.set("entity", "podcastEpisode");
-    CORSUrl.searchParams.set("limit", "20");
-    return CORSUrl;
-  }, [pid]);
+  const url = useMemo(() => {
+    const urlWithParams = new URL("https://itunes.apple.com/lookup?");
+    urlWithParams.searchParams.set("id", pid);
+    urlWithParams.searchParams.set("media", "podcast");
+    urlWithParams.searchParams.set("entity", "podcastEpisode");
+    urlWithParams.searchParams.set("limit", "20");
+    urlWithParams.searchParams.set("country", "US");
 
-  const url = `https://api.allorigins.win/get?url=${encodedUrl}`;
+    return `https://api.allorigins.win/get?url=${encodeURIComponent(
+      urlWithParams.href
+    )}`;
+  }, [pid]);
 
   const { podcasts_detail: storedPodcasts } = useStorageData();
   const podcastDetail = storedPodcasts?.find(
@@ -46,9 +48,9 @@ export const useEpisodes = () => {
         episodes: data,
       };
 
-      if (!hasStoredPodcasts) return [item] /* Init the storage data */;
+      if (!hasStoredPodcasts) return [item];
       else {
-        const payload = [...storedPodcasts]; /* Add the episode to current */
+        const payload = [...storedPodcasts];
         payload.push(item);
         return payload;
       }
