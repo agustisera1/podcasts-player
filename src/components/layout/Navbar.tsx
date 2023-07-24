@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 import { Flex, Text, Spinner } from "@chakra-ui/react";
-import { usePodcasts } from "../hooks";
+import { usePodcasts } from "../../hooks";
 
 export const Navbar: FC = () => {
   const navigateToHome: MouseEventHandler = useLinkClickHandler(`/`);

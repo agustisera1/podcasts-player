@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
+import { IEpisode } from "../components/episodes";
 import { useStorageData } from "./useStorageData";
 
 export const useEpisode = () => {
@@ -16,5 +17,9 @@ export const useEpisode = () => {
     [eid, podcast]
   );
 
-  return { episode };
+  return {
+    episode:
+      episode ??
+      ({ description: "", trackName: "Episode not found" } as IEpisode),
+  };
 };

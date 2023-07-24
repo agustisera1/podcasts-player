@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Layout as BaseLayout } from "../layout";
 
+import { Layout as BaseLayout } from "../components/layout";
 import { MainView, PodcastDetail, EpisodeDetail } from "../views";
 
 /* Could use different wrappers to build views */

@@ -18,7 +18,7 @@ describe("usePodcasts", () => {
     const { result } = renderHook(() => usePodcasts());
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledTimes(1);
     });
 
     /* Reduce the amount of data */
@@ -44,7 +44,9 @@ describe("usePodcasts", () => {
 
     const { result } = renderHook(() => usePodcasts());
 
-    expect(global.fetch).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
 
     await waitFor(() => {
       /* Reduce the amount of data */
@@ -63,7 +65,9 @@ describe("usePodcasts", () => {
 
     const { result } = renderHook(() => usePodcasts());
 
-    expect(global.fetch).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
 
     await waitFor(() => {
       /* Reduce the amount of data */
