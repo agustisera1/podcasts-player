@@ -49,11 +49,9 @@ export const EpisodesList = () => {
     <Flex flexWrap="wrap" gap={4} width="100%">
       <Flex flex={1} boxShadow="md">
         <Heading width="100%" my={0} p={4}>
-          {error
-            ? "Episodes count not available"
-            : episodes.length
-            ? `Episodes: ${episodes.length}`
-            : "Loading"}
+          {error && "Episodes count not available"}
+          {loading && "Loading"}
+          {!error && !loading && episodes.length}
         </Heading>
       </Flex>
 

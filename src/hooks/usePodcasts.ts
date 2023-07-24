@@ -10,7 +10,7 @@ import { StorageKeys } from "../hooks";
   This URL Could be configurable by passing params to the hook + using env vars.
   Not required for demo
 */
-const url = encodeURI(
+const url = new URL(
   "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json"
 );
 

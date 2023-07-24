@@ -24,7 +24,7 @@ Launches the test runner in the interactive watch mode.
 - Optimize client storage
 - Optimize components (caching)
 - Increase the test coverage
-- Add error handling for views (not specified as requirement in this challenge)
+- Add error handling for views
 - Responsive components
 - Implement theming and design systems
 - Integrate server side architecture (long term, migration required)
