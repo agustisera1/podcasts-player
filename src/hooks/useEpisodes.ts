@@ -29,7 +29,7 @@ export const useEpisodes = () => {
   const genStorePayload = useCallback(
     /*
       Takes a list of episodes, checks if are stored within the local storage
-      then saves them if they're not stored. (Updates or init the store)
+      then saves them if needed. (Updates or init the store)
     */
     (data: IEpisode[]) => {
       const item = {
