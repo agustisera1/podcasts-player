@@ -22,7 +22,9 @@ export const useEpisodes = () => {
     urlWithParams.searchParams.set("limit", "20");
     urlWithParams.searchParams.set("country", "US");
 
-    return `https://api.allorigins.win/get?url=${urlWithParams}`;
+    return `https://api.allorigins.win/get?url=${encodeURIComponent(
+      urlWithParams.href
+    )}`;
   }, [pid]);
 
   const { podcasts_detail: storedPodcasts } = useStorageData();

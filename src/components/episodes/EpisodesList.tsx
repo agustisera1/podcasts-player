@@ -51,7 +51,7 @@ export const EpisodesList = () => {
         <Heading width="100%" my={0} p={4}>
           {error && "Episodes count not available"}
           {loading && "Loading"}
-          {!error && !loading && episodes.length}
+          {!error && !loading && `Episodes: ${episodes.length}`}
         </Heading>
       </Flex>
 
